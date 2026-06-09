@@ -97,4 +97,19 @@ public class PredictionController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    /**
+     ** PUT /api/prediction/update-user-best-thrid
+     **/
+    @PutMapping("/update-user-best-thrid")
+    public ResponseEntity<Map<String, Object>> updateUserBestThird(@RequestParam int userBestThirdId,
+                                                                   @RequestParam int userId,
+                                                                   @RequestParam int countryId){
+        try {
+            Map<String, Object> newUserBestThird = predictionService.updateUserBestThirdById(userBestThirdId, userId, countryId);
+            return ResponseEntity.ok(newUserBestThird);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

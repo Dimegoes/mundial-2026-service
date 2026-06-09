@@ -106,4 +106,22 @@ public class UserRepositoryImpl implements IUserRepository {
             throw new RuntimeException("Error inesperado al obtener la información de inicio de sesión: " + ex.getMessage(), ex);
         }
     }
+
+    @Override
+    public Map<String, Object> changePassword(int userId, String oldPassword, String newPassword){
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("userId", userId, Types.INTEGER);
+            parameters.addValue("oldPassword", oldPassword, Types.VARCHAR);
+            parameters.addValue("newPassword", oldPassword, Types.VARCHAR);
+
+            String sql = "EXEC sp_change_password @user_id = :userId, @old_password = :oldPassword, @new_password = :newPassword";
+
+            return namedParameterJdbcTemplate.queryForMap(sql, parameters);
+        } catch (DataAccessException ex) {
+            throw new RuntimeException("Error al obtener la información de inicio de sesión: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error inesperado al obtener la información de inicio de sesión: " + ex.getMessage(), ex);
+        }
+    }
 }

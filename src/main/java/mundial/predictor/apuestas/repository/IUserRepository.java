@@ -9,5 +9,6 @@ public interface IUserRepository {
     List<Map<String, Object>> getUsers();
     Map<String, Object> getUserById(int userId);
     Map<String, Object> getUserForLogin(int loginType, String loginValue);
+    Map<String, Object> changePassword(int userId, String oldPassword, String newPassword);
 }
 

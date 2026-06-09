@@ -10,4 +10,5 @@ public interface IPredictionRepository {
     Map<String, Object> deleteUserGroupPrediction(int predictionId);
     List<Map<String, Object>> getUserBestThird(int userId);
     Map<String, Object> createUserBestThird(int userId, int countryId);
+    Map<String, Object> updateUserBestThirdById(int userBestThirdId, int userId, int countryId);
 }

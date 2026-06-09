@@ -27,4 +27,7 @@ public class UserService {
     public Map<String, Object> getUserForLogin(int loginType, String loginValue){
         return userRepository.getUserForLogin(loginType, loginValue);
     }
+    public Map<String, Object> changePassword(int userId, String oldPassword, String newPassword){
+        return userRepository.changePassword(userId, oldPassword, newPassword);
+    }
 }

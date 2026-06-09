@@ -30,4 +30,7 @@ public class PredictionService {
     public Map<String, Object> createUserBestThird(int userId, int countryId){
         return predictionRepository.createUserBestThird(userId, countryId);
     }
+    public Map<String, Object> updateUserBestThirdById(int userBestThirdId, int userId, int countryId){
+        return predictionRepository.updateUserBestThirdById(userBestThirdId, userId, countryId);
+    }
 }

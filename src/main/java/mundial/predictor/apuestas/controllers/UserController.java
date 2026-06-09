@@ -72,7 +72,7 @@ public class UserController {
     }
 
     /**
-     ** GER /api/user/all-users
+     ** GET /api/user/all-users
      **/
     @GetMapping("/all-users")
     public ResponseEntity<List<Map<String, Object>>> getAllUsers() {
@@ -85,7 +85,7 @@ public class UserController {
     }
 
     /**
-     ** GER /api/user/all-users
+     ** GET /api/user/all-users
      **/
     @GetMapping("/{userId}")
     public ResponseEntity<Map<String, Object>> getUserById(@PathVariable int userId) {
@@ -100,12 +100,27 @@ public class UserController {
     }
 
     /**
-     ** GER /api/user/get-user-for-login
+     ** GET /api/user/get-user-for-login
      **/
     @GetMapping("/get-user-for-login")
     public ResponseEntity<Map<String, Object>> getUserForLogin(@Param("loginType") int loginType, @Param("loginValue") String loginValue) {
         try {
             Map<String, Object> userLogin = userService.getUserForLogin(loginType, loginValue);
+            return ResponseEntity.ok(userLogin);
+        } catch (DataAccessException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error en la base de datos: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error inesperado: " + ex.getMessage(), ex);
+        }
+    }
+
+    /**
+     ** PUT /api/user/change-password
+     **/
+    @PutMapping("/change-password")
+    public ResponseEntity<Map<String, Object>> changePassword(@Param("userId") int userId, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword) {
+        try {
+            Map<String, Object> userLogin = userService.changePassword(userId, oldPassword, newPassword);
             return ResponseEntity.ok(userLogin);
         } catch (DataAccessException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error en la base de datos: " + ex.getMessage(), ex);

@@ -119,4 +119,21 @@ public class PredictionRepositoryImpl implements IPredictionRepository {
             throw new RuntimeException("Error inesperado al obtener la información de los usuarios: " + ex.getMessage(), ex);
         }
     }
+    @Override
+    public Map<String, Object> updateUserBestThirdById(int userBestThirdId, int userId, int countryId){
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("userBestThirdId", userBestThirdId, Types.INTEGER);
+            parameters.addValue("userId", userId, Types.INTEGER);
+            parameters.addValue("countryId", countryId, Types.INTEGER);
+
+            String sql = "EXEC sp_update_user_best_third @user_best_third_id = :userBestThirdId, @user_id = :userId, @country_id = :countryId";
+
+            return namedParameterJdbcTemplate.queryForMap(sql, parameters);
+        }catch (DataAccessException ex) {
+            throw new RuntimeException("Error al obtener la información de los usuarios: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error inesperado al obtener la información de los usuarios: " + ex.getMessage(), ex);
+        }
+    }
 }

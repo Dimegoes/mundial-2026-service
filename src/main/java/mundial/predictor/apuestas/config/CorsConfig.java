@@ -16,11 +16,15 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200") // tu frontend exacto
+                        .allowedOrigins(
+                                "http://localhost:4200",
+                                "https://mundial-2026-service-production.up.railway.app"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true); // habilita credenciales
+                        .allowCredentials(true);
             }
         };
     }
 }
+
